@@ -15,7 +15,6 @@ class FormationType extends AbstractType
             ->add('nom')
             ->add('nombreJours')
             ->add('dateDebut')
-            ->add('users')
         ;
     }
 
