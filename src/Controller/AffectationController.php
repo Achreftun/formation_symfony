@@ -39,16 +39,14 @@ class AffectationController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="affectation_delete", methods={"DELETE"})
+     * @Route("/{id}", name="affectation_delete", methods={"GET"})
      */
-    public function delete(Request $request, User $user)
+    public function delete(Formation $formation)
     {
-        if ($this->isCsrfTokenValid('delete' . $user->getId(), $request->request->get('_token'))) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->remove($user);
-            $entityManager->flush();
-        }
-
-        return $this->redirectToRoute('app_logout');
+        $user = $this->getUser();
+        $user->removeFormation($formation);
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->flush();
+        return $this->redirectToRoute('affectation_index');
     }
 }
