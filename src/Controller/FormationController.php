@@ -5,10 +5,11 @@ namespace App\Controller;
 use App\Entity\Formation;
 use App\Form\FormationType;
 use App\Repository\FormationRepository;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**
  * @Route("/formation")
@@ -27,6 +28,7 @@ class FormationController extends AbstractController
 
     /**
      * @Route("/new", name="formation_new", methods={"GET","POST"})
+     * @IsGranted("ROLE_FORMATEUR")
      */
     public function new(Request $request): Response
     {
@@ -60,6 +62,7 @@ class FormationController extends AbstractController
 
     /**
      * @Route("/{id}/edit", name="formation_edit", methods={"GET","POST"})
+     * @IsGranted("ROLE_FORMATEUR")
      */
     public function edit(Request $request, Formation $formation): Response
     {
@@ -80,6 +83,7 @@ class FormationController extends AbstractController
 
     /**
      * @Route("/{id}", name="formation_delete", methods={"DELETE"})
+     * @IsGranted("ROLE_FORMATEUR")
      */
     public function delete(Request $request, Formation $formation): Response
     {

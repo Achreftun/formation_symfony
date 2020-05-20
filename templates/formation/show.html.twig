@@ -24,14 +24,37 @@
 				<th>DateDebut</th>
 				<td>{{ formation.dateDebut ? formation.dateDebut|date('Y-m-d H:i:s') : '' }}</td>
 			</tr>
+
 		</tbody>
 	</table>
+	<h3>Formateurs</h3>
+	<ul>
+		{% for user in formation.users %}
+			{% if 'ROLE_FORMATEUR' in user.roles %}
+				<li>
+					{{ user.prenom }}
+					{{ user.nom }}
+				</li>
+			{% endif %}
+		{% endfor %}
+	</ul>
+
+	<h3>Stagiaires</h3>
+	<ul>
+		{% for user in formation.users %}
+			{% if 'ROLE_STAGIAIRE' in user.roles %}
+				<li>
+					{{ user.prenom }}
+					{{ user.nom }}
+				</li>
+			{% endif %}
+		{% endfor %}
+	</ul>
 
 	<a href="{{ path('formation_index') }}">back to list</a>
-	{% if is_granted('ROLE_Formateur') %}
+	{% if is_granted('ROLE_FORMATEUR') %}
 
 		<a href="{{ path('formation_edit', {'id': formation.id}) }}">edit</a>
-
 
 		{{ include('formation/_delete_form.html.twig') }}
 	{% endif %}

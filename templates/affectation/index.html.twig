@@ -1,0 +1,73 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello AffectationController!
+{% endblock %}
+
+{% block body %}
+	<h3>Formations auxquelles vous participez</h3>
+	<table class="table">
+		<thead>
+			<tr>
+
+				<th>Nom</th>
+				<th>Nombre de jours</th>
+				<th>Date début</th>
+				<th>Nombre de participants</th>
+				<th>actions</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for formation in formations %}
+				<tr>
+					<td>{{ formation.nom }}</td>
+					<td>{{ formation.nombreJours }}</td>
+					<td>{{ formation.dateDebut ? formation.dateDebut|date('Y-m-d H:i:s') : '' }}</td>
+					<td>{{ formation.users ? formation.users | length : 0 }}</td>
+					<td>
+						<a href="{{ path('affectation_delete', {'id': formation.id}) }}">cancel</a>
+
+					</td>
+				</tr>
+			{% else %}
+				<tr>
+					<td colspan="5">no records found</td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+	<h3>Autres formations</h3>
+	<table class="table">
+		<thead>
+			<tr>
+
+				<th>Nom</th>
+				<th>Nombre de jours</th>
+				<th>Date début</th>
+				<th>Nombre de participants</th>
+				<th>actions</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for formation in autres  %}
+
+				<tr>
+					<td>{{ formation.nom }}</td>
+					<td>{{ formation.nombreJours }}</td>
+					<td>{{ formation.dateDebut ? formation.dateDebut|date('Y-m-d H:i:s') : '' }}</td>
+					<td>{{ formation.users ? formation.users | length : 0 }}</td>
+
+
+					<td>
+						<a href="{{ path('affectation_add', {'id': formation.id}) }}">participate</a>
+					</td>
+				</tr>
+			{% else %}
+				<tr>
+					<td colspan="5">no records found</td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+<a href="{{ path('home') }}">back to home</a>
+
+{% endblock %}

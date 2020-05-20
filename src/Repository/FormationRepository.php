@@ -18,7 +18,32 @@ class FormationRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Formation::class);
     }
+    public function findByUserId(int $id)
+    {
+        $entityManager = $this->getEntityManager();
 
+        $query = $entityManager->createQuery(
+            'SELECT f 
+            FROM App\Entity\Formation f
+            JOIN f.users u 
+            WHERE u.id = :id'
+        )->setParameter('id', $id);
+        $result = $query->getResult();
+        return $result;
+    }
+
+    public function findWithoutUserId(int $id)
+    {
+        $entityManager = $this->getEntityManager();
+
+        $query = $entityManager->createQuery(
+            'SELECT f 
+            FROM App\Entity\Formation f 
+            WHERE :id NOT MEMBER OF f.users'
+        )->setParameter('id', $id);
+        $result = $query->getResult();
+        return $result;
+    }
     // /**
     //  * @return Formation[] Returns an array of Formation objects
     //  */

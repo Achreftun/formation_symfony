@@ -1,11 +1,19 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello HomeController!{% endblock %}
+{% block title %}Hello HomeController!
+{% endblock %}
 
 {% block body %}
-<ul>
-	<li><a href="{{ url('user_edit') }}">Your account</a></li>
+	<ul>
+		<li><a href="{{ url('user_edit') }}">Your account</a></li>
 
-	<li><a href="{{ url('formation_index') }}">Formation</a></li>
-</ul>
+		<li><a href="{{ url('formation_index') }}">Training</a></li>
+
+<li>
+<a href="{{ url('affectation_index') }}">Assignment</a>
+
+</li>
+
+
+	</ul>
 {% endblock %}
