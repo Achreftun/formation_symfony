@@ -2,19 +2,19 @@
 
 namespace App\Controller;
 
-use App\Entity\User;
-use App\Form\UserType;
+
 use App\Entity\Formation;
 use App\Repository\FormationRepository;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
+/**
+ * @Route("/affectation")
+ */
 class AffectationController extends AbstractController
 {
     /**
-     * @Route("/affectation", name="affectation_index")
+     * @Route("", name="affectation_index")
      */
     public function index(FormationRepository $formationRepository)
     {
@@ -33,13 +33,12 @@ class AffectationController extends AbstractController
         $user = $this->getUser();
         $user->addFormation($formation);
         $entityManager = $this->getDoctrine()->getManager();
-        //     $entityManager->persist($user);
         $entityManager->flush();
         return $this->redirectToRoute('affectation_index');
     }
 
     /**
-     * @Route("/{id}", name="affectation_delete", methods={"GET"})
+     * @Route("/delete/{id}", name="affectation_delete", methods={"GET"})
      */
     public function delete(Formation $formation)
     {

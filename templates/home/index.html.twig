@@ -5,14 +5,25 @@
 
 {% block body %}
 	<ul>
-		<li><a href="{{ url('user_edit') }}">Your account</a></li>
+		<li>
+			<a href="{{ url('user_edit') }}">Your account</a>
+		</li>
 
-		<li><a href="{{ url('formation_index') }}">Training</a></li>
+		<li>
+			<a href="{{ url('formation_index') }}">Training</a>
+		</li>
 
-<li>
-<a href="{{ url('affectation_index') }}">Assignment</a>
+		<li>
+			<a href="{{ url('affectation_index') }}">Assignment</a>
 
-</li>
+		</li>
+		{% if is_granted('ROLE_FORMATEUR') %}
+			<li>
+				<a href="{{ url('invitation_index') }}">Invitation</a>
+
+			</li>
+
+		{% endif %}
 
 
 	</ul>

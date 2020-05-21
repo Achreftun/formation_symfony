@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello InvitationController!
+{% endblock %}
+
+{% block body %}
+	<form action="new" method='POST'>
+		<label for="idUSer">Stagiaire</label>
+		<select name='idUser' id='idUser'>
+
+			{% for user in users | filter(elt => 'ROLE_STAGIAIRE' in elt.roles) %}
+				<option value={{ user.id}}>
+					{{ user.prenom }}
+					{{ user.nom }}
+				</option>
+			{% endfor %}
+		</select><br>
+		<label for="idFormation">Formation</label>
+		<select name='idFormation' id='idFormation'>
+
+			{% for formation in formations %}
+
+				<option value={{ formation.id}}>
+					{{ formation.nom }} -- 
+					{{ formation.nombreJours }} jours
+				</option>
+			{% endfor %}
+		</select><br>
+        <button> Inviter </button>
+	</form>
+<a href="{{ path('home') }}">back to home</a>
+
+{% endblock %}
